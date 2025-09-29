@@ -19,10 +19,15 @@ int main() {
         return 1;
     }
 
+    cout << "Iterations:" << endl;
+    
     do{
+        counter++;
         // Формула метода хорд: x = (A*F(B) - B*F(A)) / (F(B) - F(A))
         D = (A * F(B) - B * F(A)) / (F(B) - F(A));
         double fD = F(D);
+        
+        cout << counter << " : " << D << " (f(D) = " << fD << ")" << endl;
         
         if(fabs(fD) < eps){
             break;
@@ -37,6 +42,7 @@ int main() {
         
     }while((B - A) >= eps);
 
-    cout<<"Result2: "<<D<<endl;
+    cout << "Result2: " << D << endl;
+    cout << "Total iterations: " << counter << endl;
     return 0;
 }
