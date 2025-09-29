@@ -1,0 +1,45 @@
+```cpp
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main() {
+    double A = 0;
+    double B = 1; 
+
+    double e = 0.0001;
+    double C;
+    int counter = 0;
+
+    // Функция: sqrt(2x^2 + 1.2 - cos(x)) - 1 = 0
+    auto f = [](double x) {
+        return sqrt(2*x*x + 1.2 - cos(x)) - 1;
+    };
+
+    if(f(A) * f(B) >= 0){
+        cout<<"no roots"<<endl;
+        return 1;
+    }
+    
+    while((B - A) >= e){
+        counter++;
+        C = (A + B) / 2;
+        cout << counter << "  :  " << C << endl;
+
+        double f_c = f(C);
+
+        if(fabs(f_c) < e){
+            break;
+        }
+
+        if(f(A) * f_c < 0){
+            B = C;
+        }
+        else{
+            A = C;
+        }
+    }
+    
+    cout << "result: " << C << endl;
+    return 0
+}
