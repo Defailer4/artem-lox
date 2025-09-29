@@ -2,42 +2,41 @@
 #include <cmath>
 using namespace std;
 
-double f(double x) {
+double F(double x) {
     return sqrt(2*x*x + 1.2 - cos(x)) - 1;
 }
 
 int main() {
     double A = 0;
     double B = 1; 
-
-    double e = 0.0001;
-    double C;
+    
+    double eps = 0.0001;
+    double D;
     int counter = 0;
-
-    if(f(A) * f(B) >= 0){
-        cout<<"no roots"<<endl;
+    
+    if(F(A) * F(B) >= 0){
+        cout<<"no roots";
         return 1;
     }
-    
-    while((B - A) >= e){
-        counter++;
-        C = (A + B) / 2;
-        cout << counter << "  :  " << C << endl;
 
-        double f_c = f(C);
-
-        if(fabs(f_c) < e){
+    do{
+        // Формула метода хорд: x = (A*F(B) - B*F(A)) / (F(B) - F(A))
+        D = (A * F(B) - B * F(A)) / (F(B) - F(A));
+        double fD = F(D);
+        
+        if(fabs(fD) < eps){
             break;
         }
-
-        if(f(A) * f_c < 0){
-            B = C;
+        
+        if(F(A) * F(D) < 0){
+            B = D;
         }
         else{
-            A = C;
+            A = D;
         }
-    }
-    
-    cout << "result: " << C << endl;
+        
+    }while((B - A) >= eps);
+
+    cout<<"Result2: "<<D<<endl;
     return 0;
 }
